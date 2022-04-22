@@ -4,36 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LineComparator {
-    String stringToCheck;
+    // approach: select line, create new list without selected line, run
+    // comparison selected line versus combinations of any 2 items in new list
+    // performance: perform length check, only if length is same, create
+    // combi string and check content of strings
+
     List<String> fullList;
     List<String> listToCompareTo;
 
-    // method A: take 1 line, compare it with combination of 2 elements in
-    // new list where the new list is a copy of full list without the line
-    // being checked
+    String stringToCheck;
+
+    int lineNrStringToCheck;
 
     public void setFullList(List<String> list) {
         this.fullList = list;
-    }
-
-    // private 'setter' for both line x and new list to compare line x with
-    private void setLineAndListToPerformComparisonOn(List<String> fullList,
-                                                     int index) {
-        this.stringToCheck = fullList.get(index);
-        listToCompareTo = new ArrayList<>(fullList);
-        listToCompareTo.remove(index);
-    }
-
-    private void comparison(String s, List<String> l) {
-        for (int i = 0; i < l.size() - 1; i++) {
-            for (int j = i + 1; j < l.size(); j++) {
-                String c = l.get(i) + l.get(j);
-                if (c.equals(s)) {
-                    System.out.println("for the line " + s + " a valid " +
-                                               "combination has been found: " + l.get(i) + " and " + l.get(j));
-                }
-            }
-        }
     }
 
     public void runThroughFileAndCheckCombinations() {
@@ -43,21 +27,32 @@ public class LineComparator {
         }
     }
 
-    // method B (not used): take 2 lines, concatenate, compare lines in list -
-    // currently incorrect, this method does not take lines listed
-    // before the line elements taken for comparison
-    public void compareElement(List<String> listToCheck) {
+    // private 'setter' for both line x and new list to compare line x with
+    private void setLineAndListToPerformComparisonOn(List<String> fullList,
+                                                     int index) {
+        this.stringToCheck = fullList.get(index);
+        this.lineNrStringToCheck = index + 1;
+        listToCompareTo = new ArrayList<>(fullList);
+        listToCompareTo.remove(index);
+    }
 
-        for (int i = 0; i < listToCheck.size() - 1; i++) {
-            String part1 = listToCheck.get(i);
-            String part2 = listToCheck.get(i + 1);
-            stringToCheck = part1 + part2;
-            for (int j = i + 2; j < listToCheck.size() - 1; j++) {
-                if (stringToCheck.equals(listToCheck.get(j))) {
-                    System.out.println("combination of " + part1 + " and " + part2 + " is encountered at line " + j + " (" + listToCheck.get(j) + ").");
-                } else { }
+    private void comparison(String s, List<String> l) {
+        for (int i = 0; i < l.size() - 1; i++) {
 
+            for (int j = i + 1; j < l.size(); j++) {
+
+                if (lengthOfStringsIsSame(l.get(i), l.get(j), s)) {
+                    String c = l.get(i) + l.get(j);
+
+                    if (c.equals(s)) {
+                        System.out.println("for line " + lineNrStringToCheck + " " + s + " found combination " + l.get(i) + " + " + l.get(j));
+                    }
+                }
             }
         }
+    }
+
+    private boolean lengthOfStringsIsSame(String s1, String s2, String main) {
+        return s1.length() + s2.length() == main.length();
     }
 }

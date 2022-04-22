@@ -15,11 +15,13 @@ public class MyFileReader {
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                 String line;
                 while ((line = br.readLine()) != null) {
-                    textLineList.add(line);
-                    lines++;
+                    if (line.trim().length() > 0) { // lines with only
+                        // spaces will not be entered in the list
+                        textLineList.add(line);
+                        lines++;
+                    }
                 }
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }

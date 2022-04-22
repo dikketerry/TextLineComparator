@@ -6,29 +6,25 @@ import be.intecbrussel.services.MyFileReader;
 import java.io.*;
 import java.util.List;
 
-// TODO: Dependency injection
-// TODO: interface approach
 // TODO: automated testing implementation
 
-public class App {
-    // read file
-    // convert to list
-    // select line from list
-    // pick (sensible?) duo combinations (concatenations) of other lines
-    // compare combis with selected line, return result
+// app that reads a txt file, takes a line element from it and checks if the
+// line element corresponds to the combination of 2 other line elements in
+// the file
 
-    public static void main(String[] args) throws FileNotFoundException {
+public class App {
+
+    public static void main(String[] args) {
 
         File file = new File("testfile.txt");
         MyFileReader fr = new MyFileReader();
 
         List<String> lineList = fr.convertFileToList(file);
-        for (String s : lineList) {
-            System.out.println(s);
-        }
+//        for (String s : lineList) {
+//            System.out.println(s);
+//        }
 
         LineComparator lc = new LineComparator();
-//        lc.compareElement(lineList);
         lc.setFullList(lineList);
         lc.runThroughFileAndCheckCombinations();
     }
