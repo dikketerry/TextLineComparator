@@ -1,4 +1,4 @@
-package be.intecbrussel;
+package be.intecbrussel.view;
 
 import be.intecbrussel.services.LineComparator;
 import be.intecbrussel.services.MyFileReader;
@@ -18,14 +18,10 @@ public class App {
 
         File file = new File("testfile.txt");
         MyFileReader fr = new MyFileReader();
-
         List<String> lineList = fr.convertFileToList(file);
-//        for (String s : lineList) {
-//            System.out.println(s);
-//        }
 
         LineComparator lc = new LineComparator();
         lc.setFullList(lineList);
-        lc.runThroughFileAndCheckCombinations();
+        lc.runThroughListCheckCombinations();
     }
 }

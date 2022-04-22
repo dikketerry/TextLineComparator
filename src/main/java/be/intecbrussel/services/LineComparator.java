@@ -20,7 +20,7 @@ public class LineComparator {
         this.fullList = list;
     }
 
-    public void runThroughFileAndCheckCombinations() {
+    public void runThroughListCheckCombinations() {
         for (int i = 0; i < fullList.size(); i++) {
             setLineAndListToPerformComparisonOn(fullList, i);
             comparison(stringToCheck, listToCompareTo);
@@ -38,14 +38,16 @@ public class LineComparator {
 
     private void comparison(String s, List<String> l) {
         for (int i = 0; i < l.size() - 1; i++) {
+            if (l.get(i).trim().length() == 0) continue;
 
-            for (int j = i + 1; j < l.size(); j++) {
-
+            for (int j = 0; j < l.size(); j++) {
+                if (j == i) continue;
+                if (l.get(j).trim().length() == 0) continue;
                 if (lengthOfStringsIsSame(l.get(i), l.get(j), s)) {
                     String c = l.get(i) + l.get(j);
 
                     if (c.equals(s)) {
-                        System.out.println("for line " + lineNrStringToCheck + " " + s + " found combination " + l.get(i) + " + " + l.get(j));
+                        System.out.println("for line " + lineNrStringToCheck + " '" + s + "' found combination on line " + i + " '" + l.get(i) + "' + line " + j + " '" + l.get(j) +"'");
                     }
                 }
             }
