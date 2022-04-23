@@ -41,8 +41,11 @@ public class LineComparator {
             if (l.get(i).trim().length() == 0) continue;
 
             for (int j = 0; j < l.size(); j++) {
+                // avoid picking the same element twice:
                 if (j == i) continue;
+                // skip lines with only spaces:
                 if (l.get(j).trim().length() == 0) continue;
+
                 if (lengthOfStringsIsSame(l.get(i), l.get(j), s)) {
                     String c = l.get(i) + l.get(j);
 
